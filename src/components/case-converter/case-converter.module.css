@@ -1,0 +1,38 @@
+.root {
+    max-width: 768px;
+    flex-basis: 100%;
+    padding: 30px;
+    border-radius: 4px;
+    box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+}
+
+.title {
+    margin-bottom: 30px;
+    text-align: center;
+    color: #333;
+}
+
+.input {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.input:after {
+    content: "*";
+    position: relative;
+    top: -20px;
+    right: 0;
+    color: red;
+    font-size: 24px;
+    line-height: 62px;
+}
+
+.options {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
