@@ -8,6 +8,7 @@ function Checkbox(props) {
                id={props.id}
                className={styles.checkbox}
                onChange={props.onChange}
+               checked={props.checked}
         >
         </input>
     )

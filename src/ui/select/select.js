@@ -13,16 +13,17 @@ function Select(props) {
         <div className={styles['option']}>
             <Checkbox name={props.name}
                       id={props.id}
-                      onChange={handleUseCase}/>
+                      onChange={props.name !== "selectAllCases" ? handleUseCase : props.onChange}
+                      checked={props.checked}/>
             <label className={styles['option-label']}
                    htmlFor={props.htmlFor}
             >
-                {props.children}
+                <span>{props.children}</span>
             </label>
-            <input type={props.type}
+            {props.name !== "selectAllCases" ? <input type={props.type}
                    className={styles['result']}
                    value={isCaseUse ? props.value : ''}
-                   readOnly/>
+                   readOnly/> : null}
         </div>
     )
 }
