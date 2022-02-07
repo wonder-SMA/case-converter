@@ -5,6 +5,7 @@ import {Button} from "../../ui/button";
 import {Select} from "../../ui/select";
 
 const ABC = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
+const abcUpperCase = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
 
 const indeclinableNouns = ['какао', 'манго', 'кино', 'метро', 'бюро', 'домино', 'трюмо', 'пальто', 'танго', 'бунгало',
     'вето', 'авокадо', 'дело', 'сабо', 'бордо', 'евро', 'эсперанто', 'кашпо', 'депо', 'пианино', 'кенгуру', 'шоу',
@@ -21,10 +22,11 @@ const masculineWords = ['Голубь', 'Лебедь', 'Дождь', 'Гвоз�
 
 const neuterWords = ['Бремя', 'Вымя', 'Темя', 'Пламя', 'Стремя', 'Время', 'Знамя', 'Имя', 'Семя', 'Племя'];
 
-class CaseConverter extends React.Component {
+class CaseConverter extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
+            'prevWord': '',
             'inputWord': '',
             'nominativeCase': {value: ''},
             'genitiveCase': {value: ''},
@@ -38,7 +40,8 @@ class CaseConverter extends React.Component {
     }
 
     calcDeclension(word) {
-        if (word.length < 2) return;
+        if (word.length < 2 || word === this.state['prevWord']) return;
+        this.setState({'prevWord': word});
         let wordLowerCase = word.trim().toLowerCase();
         let newWord = wordLowerCase.slice(0, 1).toUpperCase() + wordLowerCase.slice(1);
         let lastChar = newWord.slice(-1);
@@ -134,9 +137,21 @@ class CaseConverter extends React.Component {
         }
     }
 
+    cleanState() {
+        this.setState({
+            'prevWord': '',
+            'nominativeCase': {value: ''},
+            'genitiveCase': {value: ''},
+            'dativeCase': {value: ''},
+            'accusativeCase': {value: ''},
+            'instrumentalCase': {value: ''},
+            'prepositionalCase': {value: ''},
+        });
+    }
+
 
     handleOnInput(e) {
-        let abcUpperCase = ABC.toUpperCase();
+        if (this.state['nominativeCase'].value) this.cleanState();
         let val = e.target.value;
         if ((~ABC.indexOf(val.slice(-1)) || ~abcUpperCase.indexOf(val.slice(-1))) && val.length <= 24) {
             this.setState({'inputWord': val})
@@ -145,7 +160,7 @@ class CaseConverter extends React.Component {
 
     handleOnSubmit(e) {
         e.preventDefault();
-        this.calcDeclension(this.state.inputWord)
+        this.calcDeclension(this.state['inputWord']);
     }
 
     render() {
@@ -154,7 +169,7 @@ class CaseConverter extends React.Component {
                 <h1 className={styles['title']}>Склонение по падежам</h1>
                 <div className={styles['input']}>
                     <Input type="text"
-                           value={this.state.inputWord}
+                           value={this.state['inputWord']}
                            placeholder="Введите существительное длиной 2 и более символов"
                            onChange={this.handleOnInput}/>
                 </div>
