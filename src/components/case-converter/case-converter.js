@@ -26,7 +26,6 @@ class CaseConverter extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            'selectAll': false,
             'prevWord': '',
             'inputWord': '',
             'nominativeCase': {value: ''},
@@ -38,7 +37,6 @@ class CaseConverter extends React.PureComponent {
         };
         this.handleOnInput = this.handleOnInput.bind(this);
         this.handleOnSubmit = this.handleOnSubmit.bind(this);
-        this.handleAllUseCase = this.handleAllUseCase.bind(this);
     }
 
     calcDeclension(word) {
@@ -151,9 +149,6 @@ class CaseConverter extends React.PureComponent {
         });
     }
 
-    handleAllUseCase() {
-        this.setState({'selectAll': !this.state['selectAll']});
-    }
 
     handleOnInput(e) {
         if (this.state['nominativeCase'].value) this.cleanState();
@@ -179,21 +174,11 @@ class CaseConverter extends React.PureComponent {
                            onChange={this.handleOnInput}/>
                 </div>
                 <div className={styles['options']}>
-                    <Select name="selectAllCases"
-                            id="selectAll"
-                            htmlFor="selectAll"
-                            type="text"
-                            onChange={this.handleAllUseCase}
-                            checked={this.state['selectAll']}
-                    >
-                        Выбрать все
-                    </Select>
                     <Select name="nominativeCase"
                             id="nominative"
                             htmlFor="nominative"
                             type="text"
                             value={this.state["nominativeCase"].value}
-                            checked={this.state['selectAll']}
                     >
                         Именительный (Кто? Что?)
                     </Select>
@@ -202,7 +187,6 @@ class CaseConverter extends React.PureComponent {
                             htmlFor="genitive"
                             type="text"
                             value={this.state["genitiveCase"].value}
-                            checked={this.state['selectAll']}
                     >
                         Родительный (Кого? Чего?)
                     </Select>
@@ -211,7 +195,6 @@ class CaseConverter extends React.PureComponent {
                             htmlFor="dative"
                             type="text"
                             value={this.state["dativeCase"].value}
-                            checked={this.state['selectAll']}
                     >
                         Дательный (Кому? Чему?)
                     </Select>
@@ -220,7 +203,6 @@ class CaseConverter extends React.PureComponent {
                             htmlFor="accusative"
                             type="text"
                             value={this.state["accusativeCase"].value}
-                            checked={this.state['selectAll']}
                     >
                         Винительный (Кого? Что?)
                     </Select>
@@ -229,7 +211,6 @@ class CaseConverter extends React.PureComponent {
                             htmlFor="instrumental"
                             type="text"
                             value={this.state["instrumentalCase"].value}
-                            checked={this.state['selectAll']}
                     >
                         Творительный (Кем? Чем?)
                     </Select>
@@ -238,7 +219,6 @@ class CaseConverter extends React.PureComponent {
                             htmlFor="prepositional"
                             type="text"
                             value={this.state["prepositionalCase"].value}
-                            checked={this.state['selectAll']}
                     >
                         Предложный (О ком? О чём?)
                     </Select>
